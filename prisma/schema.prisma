@@ -1,0 +1,132 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VacancyType {
+  INTERNSHIP
+  PRACTICE
+}
+
+model Company {
+  id String @default(uuid())
+  name String @unique @db.VarChar(255)
+  description String?
+  logo_url String?
+
+  admins AdminToCompany[]
+  employers EmployeeToCompany[]
+  vacancies Vacancy[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+  @@id([id])
+  @@map("company")
+}
+
+model University {
+  id String @default(uuid())
+  name String @unique @db.VarChar(255)
+  logo_url String?
+
+  admins AdminToUniversity[]
+  students StudentToUniversity[]
+
+  created_at DateTime @default(now())
+  @@id([id])
+  @@map("university")
+}
+
+model Vacancy {
+  id String @default(uuid())
+  name String @db.VarChar(255)
+  description String
+  questions String
+  type VacancyType
+
+  start_date DateTime? 
+  end_date DateTime?
+
+  city String
+  address String? 
+  salary Float?
+
+  company_name String
+  company Company @relation(fields: [company_name], references: [name])
+  employee_id String 
+
+  responses VacancyResponse[]
+  is_active Boolean @default(true)
+
+  @@id([id])
+  @@map("vacancy")
+}
+
+model VacancyResponse {
+  id String @default(uuid())
+
+  student_id String
+  message String
+
+  vacancy_id String
+  vacancy Vacancy @relation(fields: [vacancy_id], references: [id])
+
+  created_at DateTime @default(now())
+  @@id([id])
+  @@unique([student_id, vacancy_id])
+  @@map("vacancy_responses")
+}
+
+model EmployeeToCompany {
+  id String @default(uuid())
+
+  employee_id String
+  company_id String
+  company Company @relation(fields: [company_id], references: [id])
+
+  @@id([id])
+  @@unique([company_id, employee_id])
+  @@map("employee_to_company")
+}
+
+model AdminToCompany {
+  id String @default(uuid())
+
+  user_id String
+  company_id String
+  company Company @relation(fields: [company_id], references: [id])
+
+  @@id([id])
+  @@unique([company_id, user_id])
+  @@map("admin_to_company")
+}
+
+model StudentToUniversity {
+  id String @default(uuid())
+
+  student_id String
+  university_id String
+  university University @relation(fields: [university_id], references: [id])
+
+  @@id([id])
+  @@unique([student_id, university_id])
+  @@map("student_to_university")
+}
+
+model AdminToUniversity {
+  id String @default(uuid())
+
+  user_id String
+  university_id String
+  university University @relation(fields: [university_id], references: [id])
+
+  @@id([id])
+  @@unique([user_id, university_id])
+  @@map("admin_to_university")
+}
