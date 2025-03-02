@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { GetCompaniesDto } from '../../company/get.company.dto';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { QueryPageDto } from '../../query.page.dto';
 
 export class GetEmployeesToCompaniesDto {
   @ApiProperty()
@@ -16,7 +17,7 @@ export class GetEmployeeToCompanyDto extends GetEmployeesToCompaniesDto {
   compnay: GetCompaniesDto;
 }
 
-export class QueryGetEmployeesToCompanyDto {
+export class QueryGetEmployeesToCompanyDto extends QueryPageDto {
   @ApiProperty({ required: true })
   @IsNotEmpty()
   @IsString()
@@ -25,5 +26,5 @@ export class QueryGetEmployeesToCompanyDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
-  employee_id: string;
+  employee_id?: string;
 }
