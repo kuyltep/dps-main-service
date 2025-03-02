@@ -9,9 +9,11 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthGuard } from '../guards/auth.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { ErorrsInterceptor } from '../interceptors/errors.interceptor';
-import { CompanyModule } from './company.module';
 import { PrismaModule } from './prisma.module';
 import { AdminsToCompaniesModule } from './admins-to-company.module';
+import { ExceptionModule } from './exception.module';
+import { CompaniesModule } from './companies.module';
+import { EmployeesToCompaniesModule } from './employees-to-companies.module';
 
 @Module({
   imports: [
@@ -19,8 +21,10 @@ import { AdminsToCompaniesModule } from './admins-to-company.module';
     SwaggerModule,
     HealthModule,
     PrismaModule,
-    CompanyModule,
+    CompaniesModule,
+    ExceptionModule,
     AdminsToCompaniesModule,
+    EmployeesToCompaniesModule,
     JwtModule.registerAsync({
       useFactory(configService: ConfigService) {
         return {
