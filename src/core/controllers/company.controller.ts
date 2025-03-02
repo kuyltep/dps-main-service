@@ -97,5 +97,7 @@ export class CompanyController {
 
   @ApiParam({ name: 'id', required: true, type: String })
   @Delete(':id')
-  public async deleteCompanyById(@Param('id') id: string) {}
+  public async deleteCompanyById(@Param('id') id: string) {
+    return await this.companyService.deleteCompanyById(id);
+  }
 }

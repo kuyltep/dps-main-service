@@ -4,10 +4,14 @@ import { Prisma } from '@prisma/client';
 import { CreateCompanyDto } from 'src/common/dtos/company/create.company.dto';
 import { UpdateCompanyDto } from 'src/common/dtos/company/update.company.dto';
 import { Injectable } from '@nestjs/common';
+import { AdminsToCompaniesService } from './admins-to-company.service';
 
 @Injectable()
 export class CompanyService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly adminsToCompanyService: AdminsToCompaniesService,
+  ) {}
 
   public async getCompaniesByFilters(query: QueryCompanyDto) {
     const companiesArgs = {
@@ -47,6 +51,17 @@ export class CompanyService {
     return await this.prismaService.company.update({
       where: { id },
       data: updateCompanyDto,
+    });
+  }
+
+  public async deleteCompanyById(id: string) {
+    await this.adminsToCompanyService.deleteAdminToCompanyByQuery({
+      company_id: id,
+    });
+    return await this.prismaService.company.delete({
+      where: {
+        id,
+      },
     });
   }
 }
