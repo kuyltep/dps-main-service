@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class QueryDeleteEmployeeToCompany {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsNotEmpty()
   @IsString()
-  employee_id: string;
+  employee_id?: string;
 
   @ApiProperty()
   @IsNotEmpty()
