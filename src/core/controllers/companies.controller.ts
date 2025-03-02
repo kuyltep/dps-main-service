@@ -22,7 +22,7 @@ import {
 } from 'src/common/dtos/company/get.company.dto';
 import { QueryCompanyDto } from 'src/common/dtos/company/query.company.dto';
 import { UpdateCompanyDto } from 'src/common/dtos/company/update.company.dto';
-import { CompanyService } from '../services/company.service';
+import { CompaniesService } from '../services/companies.service';
 
 @ApiExtraModels(
   CreateCompanyDto,
@@ -31,12 +31,14 @@ import { CompanyService } from '../services/company.service';
   GetCompanyByIdDto,
 )
 @Controller('companies')
-export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
+export class CompaniesController {
+  constructor(private readonly companyService: CompaniesService) {}
 
   @ApiResponse({
     schema: {
-      $ref: getSchemaPath(GetCompaniesDto),
+      items: {
+        $ref: getSchemaPath(GetCompaniesDto),
+      },
     },
   })
   @Get('')

@@ -5,12 +5,14 @@ import { CreateCompanyDto } from 'src/common/dtos/company/create.company.dto';
 import { UpdateCompanyDto } from 'src/common/dtos/company/update.company.dto';
 import { Injectable } from '@nestjs/common';
 import { AdminsToCompaniesService } from './admins-to-company.service';
+import { EmployeesToCompaniesService } from './employees-to-company.service';
 
 @Injectable()
-export class CompanyService {
+export class CompaniesService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly adminsToCompanyService: AdminsToCompaniesService,
+    private readonly employeesToCompanyService: EmployeesToCompaniesService,
   ) {}
 
   public async getCompaniesByFilters(query: QueryCompanyDto) {
@@ -56,6 +58,9 @@ export class CompanyService {
 
   public async deleteCompanyById(id: string) {
     await this.adminsToCompanyService.deleteAdminToCompanyByQuery({
+      company_id: id,
+    });
+    await this.employeesToCompanyService.deleteEmployeeToCompanyByQuery({
       company_id: id,
     });
     return await this.prismaService.company.delete({
