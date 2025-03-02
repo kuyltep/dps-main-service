@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { QueryGetAdminsToCompany } from 'src/common/dtos/to-company/get.admin-to-company.dto';
 import { Prisma } from '@prisma/client';
 import { CreateAdminToCompanyDto } from 'src/common/dtos/to-company/admin/create.admin-to-company.dto';
 import { QueryDeleteAdminToCompany } from 'src/common/dtos/to-company/admin/delete.admin-to-company.dto';
+import { QueryGetAdminsToCompany } from 'src/common/dtos/to-company/admin/get.admin-to-company.dto';
 
 @Injectable()
 export class AdminsToCompaniesService {

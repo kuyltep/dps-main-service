@@ -14,14 +14,15 @@ import {
   ApiResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
+
+import { AdminsToCompaniesService } from '../services/admins-to-company.service';
+import { QueryDeleteAdminToCompany } from 'src/common/dtos/to-company/admin/delete.admin-to-company.dto';
+import { CreateAdminToCompanyDto } from 'src/common/dtos/to-company/admin/create.admin-to-company.dto';
 import {
   GetAdminsToCompaniesDto,
   GetAdminToCompanyDto,
   QueryGetAdminsToCompany,
-} from 'src/common/dtos/to-company/get.admin-to-company.dto';
-import { AdminsToCompaniesService } from '../services/admins-to-company.service';
-import { QueryDeleteAdminToCompany } from 'src/common/dtos/to-company/admin/delete.admin-to-company.dto';
-import { CreateAdminToCompanyDto } from 'src/common/dtos/to-company/admin/create.admin-to-company.dto';
+} from 'src/common/dtos/to-company/admin/get.admin-to-company.dto';
 
 @ApiExtraModels(
   GetAdminsToCompaniesDto,
@@ -37,7 +38,9 @@ export class AdminsToCompaniesController {
 
   @ApiResponse({
     schema: {
-      $ref: getSchemaPath(GetAdminsToCompaniesDto),
+      items: {
+        $ref: getSchemaPath(GetAdminsToCompaniesDto),
+      },
     },
   })
   @Get()
