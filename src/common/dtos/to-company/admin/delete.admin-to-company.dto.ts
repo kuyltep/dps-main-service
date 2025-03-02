@@ -5,7 +5,7 @@ export class QueryDeleteAdminToCompany {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  employee_id?: string;
+  user_id?: string;
 
   @ApiProperty()
   @IsNotEmpty()
