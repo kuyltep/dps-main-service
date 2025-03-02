@@ -10,8 +10,8 @@ export class SwaggerModule {
 
   public config() {
     const document = new DocumentBuilder()
-      .setTitle('SSO service for smart shoe')
-      .setDescription('API Operations for SSO service Smart Shoe')
+      .setTitle('Main service for Digital Student Profile')
+      .setDescription('API Operations for main service')
       .setVersion('1.0')
       .build();
 
