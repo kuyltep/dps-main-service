@@ -5,17 +5,22 @@ import { HealthModule } from './health.module';
 import { AppController } from '../controllers/app.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '../services/config.service';
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthGuard } from '../guards/auth.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { ErorrsInterceptor } from '../interceptors/errors.interceptor';
-import { AllExceptionsFilter } from '../filters/catch.filter';
+import { CompanyModule } from './company.module';
+import { PrismaModule } from './prisma.module';
+import { AdminsToCompaniesModule } from './admins-to-company.module';
 
 @Module({
   imports: [
     ConfigModule,
     SwaggerModule,
     HealthModule,
+    PrismaModule,
+    CompanyModule,
+    AdminsToCompaniesModule,
     JwtModule.registerAsync({
       useFactory(configService: ConfigService) {
         return {
@@ -42,10 +47,6 @@ import { AllExceptionsFilter } from '../filters/catch.filter';
     {
       useClass: ErorrsInterceptor,
       provide: APP_INTERCEPTOR,
-    },
-    {
-      useClass: AllExceptionsFilter,
-      provide: APP_FILTER,
     },
   ],
 })
