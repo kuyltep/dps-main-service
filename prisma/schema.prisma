@@ -33,6 +33,7 @@ model Company {
 model University {
   id String @default(uuid())
   name String @unique @db.VarChar(255)
+  description String?
   logo_url String?
 
   admins AdminToUniversity[]
