@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { GetUniversityDto } from '../../university/get.university.dto';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { QueryPageDto } from '../../query.page.dto';
 
 export class GetStudentsToUniversityDto {
   @ApiProperty()
@@ -16,7 +17,7 @@ export class GetStudentToUniversityDto extends GetStudentsToUniversityDto {
   university: GetUniversityDto;
 }
 
-export class QueryGetStudentsToUniversityDto {
+export class QueryGetStudentsToUniversityDto extends QueryPageDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
