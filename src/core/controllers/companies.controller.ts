@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import { ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import { CreateCompanyDto } from 'src/common/dtos/company/create.company.dto';
 import { GetCompaniesDto, GetCompanyByIdDto } from 'src/common/dtos/company/get.company.dto';
 import { QueryCompanyDto } from 'src/common/dtos/company/query.company.dto';
@@ -23,12 +23,6 @@ export class CompaniesController {
     return await this.companyService.getCompaniesByFilters(query);
   }
 
-  @ApiBody({
-    required: true,
-    schema: {
-      $ref: getSchemaPath(CreateCompanyDto),
-    },
-  })
   @ApiResponse({
     schema: {
       $ref: getSchemaPath(GetCompaniesDto),
@@ -55,12 +49,6 @@ export class CompaniesController {
     return await this.companyService.getCompanyById(id);
   }
 
-  @ApiBody({
-    required: true,
-    schema: {
-      $ref: getSchemaPath(UpdateCompanyDto),
-    },
-  })
   @ApiResponse({
     schema: {
       $ref: getSchemaPath(GetCompaniesDto),

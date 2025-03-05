@@ -6,6 +6,7 @@ import { UpdateCompanyDto } from 'src/common/dtos/company/update.company.dto';
 import { Injectable } from '@nestjs/common';
 import { AdminsToCompaniesService } from './admins-to-company.service';
 import { EmployeesToCompaniesService } from './employees-to-company.service';
+import { filterUndefined } from 'src/common/utils/filterUndefined';
 
 @Injectable()
 export class CompaniesService {
@@ -47,9 +48,10 @@ export class CompaniesService {
   }
 
   public async updateCompanyById(id: string, updateCompanyDto: UpdateCompanyDto) {
+    const filteredData = filterUndefined(updateCompanyDto);
     return await this.prismaService.company.update({
       where: { id },
-      data: updateCompanyDto,
+      data: filteredData,
     });
   }
 
