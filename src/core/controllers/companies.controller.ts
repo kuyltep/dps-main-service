@@ -1,35 +1,12 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Query,
-} from '@nestjs/common';
-import {
-  ApiBody,
-  ApiExtraModels,
-  ApiParam,
-  ApiResponse,
-  getSchemaPath,
-} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { ApiBody, ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import { CreateCompanyDto } from 'src/common/dtos/company/create.company.dto';
-import {
-  GetCompaniesDto,
-  GetCompanyByIdDto,
-} from 'src/common/dtos/company/get.company.dto';
+import { GetCompaniesDto, GetCompanyByIdDto } from 'src/common/dtos/company/get.company.dto';
 import { QueryCompanyDto } from 'src/common/dtos/company/query.company.dto';
 import { UpdateCompanyDto } from 'src/common/dtos/company/update.company.dto';
 import { CompaniesService } from '../services/companies.service';
 
-@ApiExtraModels(
-  CreateCompanyDto,
-  UpdateCompanyDto,
-  GetCompaniesDto,
-  GetCompanyByIdDto,
-)
+@ApiExtraModels(CreateCompanyDto, UpdateCompanyDto, GetCompaniesDto, GetCompanyByIdDto)
 @Controller('companies')
 export class CompaniesController {
   constructor(private readonly companyService: CompaniesService) {}
@@ -90,10 +67,7 @@ export class CompaniesController {
     },
   })
   @Patch(':id')
-  public async updateCompanyById(
-    @Param('id') id: string,
-    @Body() updateCompanyDto: UpdateCompanyDto,
-  ) {
+  public async updateCompanyById(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
     return await this.companyService.updateCompanyById(id, updateCompanyDto);
   }
 

@@ -17,12 +17,8 @@ export class AdminsToCompaniesService {
       skip: query.page_number * query.page_size,
       take: query.page_size,
     } as Prisma.AdminToCompanyFindManyArgs;
-    query.user_id
-      ? (adminsToCompaniesArgs.where.user_id = query.user_id)
-      : null;
-    return await this.prismaService.adminToCompany.findMany(
-      adminsToCompaniesArgs,
-    );
+    query.user_id ? (adminsToCompaniesArgs.where.user_id = query.user_id) : null;
+    return await this.prismaService.adminToCompany.findMany(adminsToCompaniesArgs);
   }
 
   public async getAdminToCompanyById(id: string) {
@@ -34,9 +30,7 @@ export class AdminsToCompaniesService {
     });
   }
 
-  public async createAdminToCompany(
-    createAdminToCompanyDto: CreateAdminToCompanyDto,
-  ) {
+  public async createAdminToCompany(createAdminToCompanyDto: CreateAdminToCompanyDto) {
     return await this.prismaService.adminToCompany.create({
       data: createAdminToCompanyDto,
     });

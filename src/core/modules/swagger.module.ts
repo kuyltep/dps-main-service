@@ -1,8 +1,5 @@
 import { Global, INestApplication, Module } from '@nestjs/common';
-import {
-  DocumentBuilder,
-  SwaggerModule as NestSwaggerModule,
-} from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule as NestSwaggerModule } from '@nestjs/swagger';
 @Global()
 @Module({ imports: [NestSwaggerModule] })
 export class SwaggerModule {

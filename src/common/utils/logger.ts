@@ -16,11 +16,7 @@ const transport = new transports.DailyRotateFile({
 });
 export const logger = createLogger({
   level: 'info',
-  format: combine(
-    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    json(),
-    logFormat,
-  ),
+  format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), json(), logFormat),
   transports: [
     new transports.Console({
       level: 'error',

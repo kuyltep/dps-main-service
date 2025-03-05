@@ -36,17 +36,13 @@ export class AdminsToUniversitiesService {
     return await this.prismaService.adminToUniversity.findUnique(findArgs);
   }
 
-  public async createAdminToUniversity(
-    createAdminToUniversityDto: CreateAdminToUniversityDto,
-  ) {
+  public async createAdminToUniversity(createAdminToUniversityDto: CreateAdminToUniversityDto) {
     return await this.prismaService.adminToUniversity.create({
       data: createAdminToUniversityDto,
     });
   }
 
-  public async deleteAdminToUniversityByQuery(
-    query: QueryDeleteAdminToUniversity,
-  ) {
+  public async deleteAdminToUniversityByQuery(query: QueryDeleteAdminToUniversity) {
     const deleteArgs = {
       where: {
         university_id: query.university_id,

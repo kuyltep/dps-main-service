@@ -18,9 +18,7 @@ export class EmployeesToCompaniesService {
       take: query.page_size,
     } as Prisma.EmployeeToCompanyFindManyArgs;
 
-    query.employee_id
-      ? (employeeArgs.where.employee_id = query.employee_id)
-      : null;
+    query.employee_id ? (employeeArgs.where.employee_id = query.employee_id) : null;
     return await this.prismaService.employeeToCompany.findMany(employeeArgs);
   }
 
@@ -33,9 +31,7 @@ export class EmployeesToCompaniesService {
     });
   }
 
-  public async createEmployeeToCompany(
-    createEmployeeToCompanyDto: CreateEmployeeToCompanyDto,
-  ) {
+  public async createEmployeeToCompany(createEmployeeToCompanyDto: CreateEmployeeToCompanyDto) {
     return await this.prismaService.employeeToCompany.create({
       data: createEmployeeToCompanyDto,
     });
@@ -49,9 +45,7 @@ export class EmployeesToCompaniesService {
     });
   }
 
-  public async deleteEmployeeToCompanyByQuery(
-    query: QueryDeleteEmployeeToCompany,
-  ) {
+  public async deleteEmployeeToCompanyByQuery(query: QueryDeleteEmployeeToCompany) {
     const deleteArgs = {
       where: {
         company_id: query.company_id,

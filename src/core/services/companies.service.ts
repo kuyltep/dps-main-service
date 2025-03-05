@@ -46,10 +46,7 @@ export class CompaniesService {
     return await this.prismaService.company.findFirst(companyArgs);
   }
 
-  public async updateCompanyById(
-    id: string,
-    updateCompanyDto: UpdateCompanyDto,
-  ) {
+  public async updateCompanyById(id: string, updateCompanyDto: UpdateCompanyDto) {
     return await this.prismaService.company.update({
       where: { id },
       data: updateCompanyDto,

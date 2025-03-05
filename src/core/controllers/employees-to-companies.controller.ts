@@ -1,18 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Query,
-} from '@nestjs/common';
-import {
-  ApiExtraModels,
-  ApiParam,
-  ApiResponse,
-  getSchemaPath,
-} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import { CreateEmployeeToCompanyDto } from 'src/common/dtos/to-company/employee/create.employee-to-company.dto';
 import { QueryDeleteEmployeeToCompany } from 'src/common/dtos/to-company/employee/delete.employee-to-company.dto';
 import {
@@ -31,9 +18,7 @@ import { EmployeesToCompaniesService } from '../services/employees-to-company.se
   QueryGetEmployeesToCompanyDto,
 )
 export class EmployeesToCompaniesController {
-  constructor(
-    private readonly employeesToCompanyService: EmployeesToCompaniesService,
-  ) {}
+  constructor(private readonly employeesToCompanyService: EmployeesToCompaniesService) {}
 
   @ApiResponse({
     schema: {
@@ -43,9 +28,7 @@ export class EmployeesToCompaniesController {
     },
   })
   @Get()
-  public async getEmployeesToCompanies(
-    @Query() query: QueryGetEmployeesToCompanyDto,
-  ) {
+  public async getEmployeesToCompanies(@Query() query: QueryGetEmployeesToCompanyDto) {
     return await this.employeesToCompanyService.getEmployeesToCompanies(query);
   }
 
@@ -66,12 +49,8 @@ export class EmployeesToCompaniesController {
     },
   })
   @Post()
-  public async createEmployeeToCompany(
-    @Body() createEmployeeToCompanyDto: CreateEmployeeToCompanyDto,
-  ) {
-    return await this.employeesToCompanyService.createEmployeeToCompany(
-      createEmployeeToCompanyDto,
-    );
+  public async createEmployeeToCompany(@Body() createEmployeeToCompanyDto: CreateEmployeeToCompanyDto) {
+    return await this.employeesToCompanyService.createEmployeeToCompany(createEmployeeToCompanyDto);
   }
 
   @Delete(':id')
@@ -80,11 +59,7 @@ export class EmployeesToCompaniesController {
   }
 
   @Delete()
-  public async deleteEmployeeToCompanyByQuery(
-    @Query() query: QueryDeleteEmployeeToCompany,
-  ) {
-    return await this.employeesToCompanyService.deleteEmployeeToCompanyByQuery(
-      query,
-    );
+  public async deleteEmployeeToCompanyByQuery(@Query() query: QueryDeleteEmployeeToCompany) {
+    return await this.employeesToCompanyService.deleteEmployeeToCompanyByQuery(query);
   }
 }
