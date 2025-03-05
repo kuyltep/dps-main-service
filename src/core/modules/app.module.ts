@@ -14,6 +14,8 @@ import { AdminsToCompaniesModule } from './admins-to-company.module';
 import { ExceptionModule } from './exception.module';
 import { CompaniesModule } from './companies.module';
 import { EmployeesToCompaniesModule } from './employees-to-companies.module';
+import { AdminsToUniversitiesModule } from './admins-to-universitites.module';
+import { StudentsToUniversitiesModule } from './students-to-universities.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { EmployeesToCompaniesModule } from './employees-to-companies.module';
     ExceptionModule,
     AdminsToCompaniesModule,
     EmployeesToCompaniesModule,
+    AdminsToUniversitiesModule,
+    StudentsToUniversitiesModule,
     JwtModule.registerAsync({
       useFactory(configService: ConfigService) {
         return {
