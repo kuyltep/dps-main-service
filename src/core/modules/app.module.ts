@@ -16,6 +16,7 @@ import { CompaniesModule } from './companies.module';
 import { EmployeesToCompaniesModule } from './employees-to-companies.module';
 import { AdminsToUniversitiesModule } from './admins-to-universitites.module';
 import { StudentsToUniversitiesModule } from './students-to-universities.module';
+import { UniversitiesModule } from './universities.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { StudentsToUniversitiesModule } from './students-to-universities.module'
     EmployeesToCompaniesModule,
     AdminsToUniversitiesModule,
     StudentsToUniversitiesModule,
+    UniversitiesModule,
     JwtModule.registerAsync({
       useFactory(configService: ConfigService) {
         return {
