@@ -14,6 +14,12 @@ enum VacancyType {
   PRACTICE
 }
 
+enum VacancyResponseStatus {
+  UNDER_CONSIDERATION
+  REJECTED
+  ACCEPTED
+}
+
 model Company {
   id String @default(uuid())
   name String @unique @db.VarChar(255)
@@ -59,11 +65,13 @@ model Vacancy {
   salary Float?
 
   company_name String
-  company Company @relation(fields: [company_name], references: [name])
+  company Company @relation(fields: [company_name], references: [name], onDelete: Cascade)
   employee_id String 
 
-  responses VacancyResponse[]
+  responses VacancyResponse[] 
   is_active Boolean @default(true)
+
+  created_at DateTime @default(now())
 
   @@id([id])
   @@map("vacancy")
@@ -73,10 +81,12 @@ model VacancyResponse {
   id String @default(uuid())
 
   student_id String
-  message String
+  message String?
 
   vacancy_id String
-  vacancy Vacancy @relation(fields: [vacancy_id], references: [id])
+  vacancy Vacancy @relation(fields: [vacancy_id], references: [id], onDelete: Cascade)
+
+  status VacancyResponseStatus @default(UNDER_CONSIDERATION)
 
   created_at DateTime @default(now())
   @@id([id])
@@ -89,7 +99,7 @@ model EmployeeToCompany {
 
   employee_id String
   company_id String
-  company Company @relation(fields: [company_id], references: [id])
+  company Company @relation(fields: [company_id], references: [id], onDelete: Cascade)
 
   @@id([id])
   @@unique([company_id, employee_id])
@@ -101,7 +111,7 @@ model AdminToCompany {
 
   user_id String
   company_id String
-  company Company @relation(fields: [company_id], references: [id])
+  company Company @relation(fields: [company_id], references: [id], onDelete: Cascade)
 
   @@id([id])
   @@unique([company_id, user_id])
@@ -113,7 +123,7 @@ model StudentToUniversity {
 
   student_id String
   university_id String
-  university University @relation(fields: [university_id], references: [id])
+  university University @relation(fields: [university_id], references: [id], onDelete: Cascade)
 
   @@id([id])
   @@unique([student_id, university_id])
@@ -125,7 +135,7 @@ model AdminToUniversity {
 
   user_id String
   university_id String
-  university University @relation(fields: [university_id], references: [id])
+  university University @relation(fields: [university_id], references: [id], onDelete: Cascade)
 
   @@id([id])
   @@unique([user_id, university_id])
