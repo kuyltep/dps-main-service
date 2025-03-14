@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { VacanciesResponsesService } from '../services/vacancies-responses.service';
-import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import { ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import {
   GetVacancyResponseDto,
   GetVacancyResponsesDto,
@@ -11,6 +11,7 @@ import {
   UpdateVacancyResponseStatusDto,
 } from 'src/common/dtos/vacancy-response/update.vacancy-response.dto';
 import { QueryGetVacancyResponsesDto } from 'src/common/dtos/vacancy-response/query.vacancy-response.dto';
+import { QueryDeleteVacanciesResponse } from 'src/common/dtos/vacancy-response/delete.vacancy-response.dto';
 
 @Controller('vacancies-responses')
 @ApiExtraModels(
@@ -49,18 +50,29 @@ export class VacanciesResponsesController {
       $ref: getSchemaPath(GetVacancyResponsesDto),
     },
   })
+  @ApiParam({ name: 'id', type: String, required: true })
   @Patch(':id/message')
   public async updateVacancyResponseMessage(
     @Param('id') id: string,
     @Body() updateVacancyResponseMessageDto: UpdateVacancyResponseMessageDto,
   ) {}
 
+  @ApiResponse({
+    schema: {
+      $ref: getSchemaPath(GetVacancyResponsesDto),
+    },
+  })
+  @ApiParam({ name: 'id', type: String, required: true })
   @Patch(':id/status')
   public async updateVacancyResponseStatus(
     @Param('id') id: string,
-    @Body() updatevacancYresponseStatusDto: UpdateVacancyResponseStatusDto,
+    @Body() updatevacancyResponseStatusDto: UpdateVacancyResponseStatusDto,
   ) {}
 
+  @ApiParam({ name: 'id', type: String, required: true })
   @Delete(':id')
   public async deleteVacancyResponseById(@Param('id') id: string) {}
+
+  @Delete()
+  public async deleteVacancyResponseByQuery(@Query() query: QueryDeleteVacanciesResponse) {}
 }
