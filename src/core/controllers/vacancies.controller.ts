@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import { ApiExtraModels, ApiParam, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import { CreateVacancyDto } from 'src/common/dtos/vacancy/create.vacancy.dto';
 import { QueryDeleteVacancyDto } from 'src/common/dtos/vacancy/delete.vacancy.dto';
 import { GetVacanciesDto, GetVacancyDto } from 'src/common/dtos/vacancy/get.vacancy.dto';
@@ -19,7 +19,9 @@ export class VacanciesController {
     },
   })
   @Get()
-  public async getVacanciesByQuery(@Query() query: QueryGetVacancyDto) {}
+  public async getVacanciesByQuery(@Query() query: QueryGetVacancyDto) {
+    return await this.vacanciesService.getVacanciesByQuery(query);
+  }
 
   @ApiResponse({
     schema: {
@@ -28,7 +30,9 @@ export class VacanciesController {
   })
   @ApiParam({ name: 'id', type: String, required: true })
   @Get(':id')
-  public async getVacancyById(@Param('id') id: string) {}
+  public async getVacancyById(@Param('id') id: string) {
+    return await this.vacanciesService.getVacancyById(id);
+  }
 
   @ApiResponse({
     schema: {
@@ -36,7 +40,9 @@ export class VacanciesController {
     },
   })
   @Post()
-  public async createVacancy(@Body() createVacancyDto: CreateVacancyDto) {}
+  public async createVacancy(@Body() createVacancyDto: CreateVacancyDto) {
+    return await this.vacanciesService.createVacancy(createVacancyDto);
+  }
 
   @ApiResponse({
     schema: {
@@ -45,12 +51,18 @@ export class VacanciesController {
   })
   @ApiParam({ name: 'id', type: String, required: true })
   @Patch(':id')
-  public async updateVacacnyById(@Body() updateVacancyDto: UpdateVacancyDto) {}
+  public async updateVacacnyById(@Param('id') id: string, @Body() updateVacancyDto: UpdateVacancyDto) {
+    return await this.vacanciesService.updateVacancyById(id, updateVacancyDto);
+  }
 
   @ApiParam({ name: 'id', type: String, required: true })
   @Delete(':id')
-  public async deleteVacancyByid(@Param('id') id: string) {}
+  public async deleteVacancyByid(@Param('id') id: string) {
+    return await this.vacanciesService.deleteVacancyById(id);
+  }
 
   @Delete('')
-  public async deleteVacanciesByQuery(@Query() query: QueryDeleteVacancyDto) {}
+  public async deleteVacanciesByQuery(@Query() query: QueryDeleteVacancyDto) {
+    return await this.vacanciesService.deleteVacanciesByQuery(query);
+  }
 }
