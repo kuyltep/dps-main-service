@@ -64,8 +64,8 @@ model Vacancy {
   address String? 
   salary Float?
 
-  company_name String
-  company Company @relation(fields: [company_name], references: [name], onDelete: Cascade)
+  company_id String
+  company Company @relation(fields: [company_id], references: [name], onDelete: Cascade)
   employee_id String 
 
   responses VacancyResponse[] 
