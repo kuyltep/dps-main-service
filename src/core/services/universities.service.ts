@@ -19,6 +19,9 @@ export class UniversitiesService {
   public async getUniversitiesByQuery(query: QueryGetUniversityDto) {
     const findArgs = {
       where: {},
+      orderBy: {
+        [query.order_by]: query.order,
+      },
       skip: query.page_size * query.page_number,
       take: query.page_size,
     } as Prisma.UniversityFindManyArgs;
