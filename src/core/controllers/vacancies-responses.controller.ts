@@ -32,7 +32,9 @@ export class VacanciesResponsesController {
     },
   })
   @Get()
-  public async getVacanciesResponsesByQuery(@Query() query: QueryGetVacancyResponsesDto) {}
+  public async getVacanciesResponsesByQuery(@Query() query: QueryGetVacancyResponsesDto) {
+    return await this.vacanciesResponsesService.getVacanciesResponsesByQuery(query);
+  }
 
   @ApiResponse({
     schema: {
@@ -40,10 +42,14 @@ export class VacanciesResponsesController {
     },
   })
   @Get(':id')
-  public async getVacancyResponseById(@Param('id') id: string) {}
+  public async getVacancyResponseById(@Param('id') id: string) {
+    return await this.vacanciesResponsesService.getVacancyResponseById(id);
+  }
 
   @Post()
-  public async createVacancyResponse(@Body() createVacancyResponseDto: CreateVacancyResponseDto) {}
+  public async createVacancyResponse(@Body() createVacancyResponseDto: CreateVacancyResponseDto) {
+    return await this.vacanciesResponsesService.createVacancyResponse(createVacancyResponseDto);
+  }
 
   @ApiResponse({
     schema: {
@@ -55,7 +61,9 @@ export class VacanciesResponsesController {
   public async updateVacancyResponseMessage(
     @Param('id') id: string,
     @Body() updateVacancyResponseMessageDto: UpdateVacancyResponseMessageDto,
-  ) {}
+  ) {
+    return await this.vacanciesResponsesService.updateVacancyResponseMessage(id, updateVacancyResponseMessageDto);
+  }
 
   @ApiResponse({
     schema: {
@@ -66,13 +74,19 @@ export class VacanciesResponsesController {
   @Patch(':id/status')
   public async updateVacancyResponseStatus(
     @Param('id') id: string,
-    @Body() updatevacancyResponseStatusDto: UpdateVacancyResponseStatusDto,
-  ) {}
+    @Body() updateVacancyResponseStatusDto: UpdateVacancyResponseStatusDto,
+  ) {
+    return await this.vacanciesResponsesService.updateVacancyResponseStatus(id, updateVacancyResponseStatusDto);
+  }
 
   @ApiParam({ name: 'id', type: String, required: true })
   @Delete(':id')
-  public async deleteVacancyResponseById(@Param('id') id: string) {}
+  public async deleteVacancyResponseById(@Param('id') id: string) {
+    return await this.vacanciesResponsesService.deleteVacancyResponseById(id);
+  }
 
   @Delete()
-  public async deleteVacancyResponseByQuery(@Query() query: QueryDeleteVacanciesResponse) {}
+  public async deleteVacancyResponseByQuery(@Query() query: QueryDeleteVacanciesResponse) {
+    return await this.vacanciesResponsesService.deleteVacancyResponseByQuery(query);
+  }
 }
