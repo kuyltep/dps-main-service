@@ -18,6 +18,7 @@ import { AdminsToUniversitiesModule } from './admins-to-universitites.module';
 import { StudentsToUniversitiesModule } from './students-to-universities.module';
 import { UniversitiesModule } from './universities.module';
 import { VacanciesModule } from './vacancies.module';
+import { VacacniesResponsesModule } from './vacancies-responses.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { VacanciesModule } from './vacancies.module';
     StudentsToUniversitiesModule,
     UniversitiesModule,
     VacanciesModule,
+    VacacniesResponsesModule,
     JwtModule.registerAsync({
       useFactory(configService: ConfigService) {
         return {
