@@ -26,6 +26,9 @@ export class VacanciesResponsesService {
     student_id,
     vacancy_id,
   }: QueryGetVacancyResponsesDto) {
+    if (!student_id && !vacancy_id) {
+      return this.exceptionService.badRequestException('Invalid query parameters was provided');
+    }
     const findArgs = {
       where: {},
       skip: page_number * page_size,
