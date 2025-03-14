@@ -17,5 +17,6 @@ async function bootstrap() {
   const port = config.getAppPort();
 
   await app.listen(port);
+  console.log(`Swagger docs listen on http://localhost:${port}/documentation`);
 }
 bootstrap();
