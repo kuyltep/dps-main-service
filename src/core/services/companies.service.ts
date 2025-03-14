@@ -24,6 +24,7 @@ export class CompaniesService {
           mode: 'insensitive',
         },
       },
+      orderBy: { [query.order_by]: query.order },
       skip: query.page_number * query.page_size,
       take: query.page_size,
     } as Prisma.CompanyFindManyArgs;
