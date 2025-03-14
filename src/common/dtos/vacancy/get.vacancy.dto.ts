@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { VacancyType } from '@prisma/client';
 import { GetCompaniesDto } from '../company/get.company.dto';
+import { GetVacancyResponsesDto } from '../vacancy-response/get.vacancy-response.dto';
 
 export class GetVacanciesDto {
   @ApiProperty()
@@ -37,5 +38,5 @@ export class GetVacancyDto extends GetVacanciesDto {
   @ApiProperty()
   company: GetCompaniesDto;
   @ApiProperty()
-  responses: [];
+  responses: GetVacancyResponsesDto[];
 }

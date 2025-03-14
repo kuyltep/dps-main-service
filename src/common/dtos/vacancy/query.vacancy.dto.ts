@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 import { QueryPageDto } from '../query.page.dto';
 
-export class QueryVacancyDto extends QueryPageDto {
+export class QueryGetVacancyDto extends QueryPageDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()

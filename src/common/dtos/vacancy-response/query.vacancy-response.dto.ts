@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { VacancyResponseStatus } from '@prisma/client';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { QueryPageDto } from '../query.page.dto';
 
-export class QueryGetVacancyResponsesDto {
+export class QueryGetVacancyResponsesDto extends QueryPageDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
