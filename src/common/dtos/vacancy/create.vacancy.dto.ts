@@ -51,7 +51,7 @@ export class CreateVacancyDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  company_name: string;
+  company_id: string;
 
   @ApiProperty()
   @IsNotEmpty()

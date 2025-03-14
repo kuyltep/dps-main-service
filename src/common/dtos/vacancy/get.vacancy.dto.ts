@@ -25,7 +25,7 @@ export class GetVacanciesDto {
   @ApiProperty()
   salary: number;
   @ApiProperty()
-  company_name: string;
+  company_id: string;
   @ApiProperty()
   employee_id: string;
   @ApiProperty()
