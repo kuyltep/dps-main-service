@@ -11,4 +11,9 @@ export class CreateVacancyResponseDto {
   @IsString()
   @IsString()
   message?: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  vacancy_id: string;
 }
