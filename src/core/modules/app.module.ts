@@ -4,7 +4,6 @@ import { SwaggerModule } from './swagger.module';
 import { HealthModule } from './health.module';
 import { AppController } from '../controllers/app.controller';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ErorrsInterceptor } from '../interceptors/errors.interceptor';
 import { PrismaModule } from './prisma.module';
 import { AdminsToCompaniesModule } from './admins-to-company.module';
 import { ExceptionModule } from './exception.module';
@@ -15,9 +14,12 @@ import { StudentsToUniversitiesModule } from './students-to-universities.module'
 import { UniversitiesModule } from './universities.module';
 import { VacanciesModule } from './vacancies.module';
 import { VacacniesResponsesModule } from './vacancies-responses.module';
+import { ErrorsInterceptor } from '../interceptors/errors.interceptor';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
+    HttpModule,
     ConfigModule,
     SwaggerModule,
     HealthModule,
@@ -35,7 +37,7 @@ import { VacacniesResponsesModule } from './vacancies-responses.module';
   controllers: [AppController],
   providers: [
     {
-      useClass: ErorrsInterceptor,
+      useClass: ErrorsInterceptor,
       provide: APP_INTERCEPTOR,
     },
   ],
