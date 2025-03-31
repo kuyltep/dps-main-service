@@ -5,10 +5,22 @@ import { Prisma } from '@prisma/client';
 import { CreateVacancyDto } from 'src/common/dtos/vacancy/create.vacancy.dto';
 import { UpdateVacancyDto } from 'src/common/dtos/vacancy/update.vacancy.dto';
 import { QueryDeleteVacancyDto } from 'src/common/dtos/vacancy/delete.vacancy.dto';
+import { QdrantService } from './qdrant.service';
+import { ConfigService } from './config.service';
+import { QueryGetResumesByVacancyDto } from 'src/common/dtos/qdrant/query.get.resumes.dto';
 
 @Injectable()
 export class VacanciesService {
-  constructor(private readonly prismaService: PrismaService) {}
+  private vacanciesCollection: string;
+  private resumesCollection: string;
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly qdrantService: QdrantService,
+    private readonly configService: ConfigService,
+  ) {
+    this.vacanciesCollection = this.configService.getQdrantVacanciesCollection();
+    this.resumesCollection = this.configService.getQdrantResumesCollection();
+  }
 
   public async getVacanciesByQuery({
     order,
@@ -59,9 +71,17 @@ export class VacanciesService {
   }
 
   public async createVacancy(createVacancyDto: CreateVacancyDto) {
-    return await this.prismaService.vacancy.create({
+    const vacancy = await this.prismaService.vacancy.create({
       data: createVacancyDto,
     });
+
+    await this.qdrantService.processText({
+      collectionName: this.vacanciesCollection,
+      id: vacancy.id,
+      text: `${createVacancyDto.description}`,
+    });
+
+    return vacancy;
   }
 
   public async updateVacancyById(id: string, updateVacacnyDto: UpdateVacancyDto) {
@@ -71,6 +91,18 @@ export class VacanciesService {
       },
       data: updateVacacnyDto,
     });
+  }
+
+  public async getResumesForVacancyById(id: string, query: QueryGetResumesByVacancyDto) {
+    const vacancyFromQdrant = await this.qdrantService.getVectorById({ collectionName: this.vacanciesCollection, id });
+
+    const resumes = await this.qdrantService.searchVectors({
+      collectionName: this.resumesCollection,
+      text: vacancyFromQdrant.payload,
+      limit: query.limit,
+    });
+
+    return resumes;
   }
 
   public async deleteVacancyById(id: string) {
