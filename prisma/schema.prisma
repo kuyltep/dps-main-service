@@ -54,7 +54,7 @@ model Vacancy {
   id String @default(uuid())
   name String @db.VarChar(255)
   description String
-  questions String
+  questions String?
   type VacancyType
 
   start_date DateTime? 
@@ -65,7 +65,7 @@ model Vacancy {
   salary Float?
 
   company_id String
-  company Company @relation(fields: [company_id], references: [name], onDelete: Cascade)
+  company Company @relation(fields: [company_id], references: [id], onDelete: Cascade)
   employee_id String 
 
   responses VacancyResponse[] 
