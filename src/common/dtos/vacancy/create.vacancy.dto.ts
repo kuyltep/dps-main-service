@@ -14,9 +14,9 @@ export class CreateVacancyDto {
   description: string;
 
   @ApiProperty()
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  questions: string;
+  questions?: string;
 
   @ApiProperty({ enum: VacancyType })
   @IsNotEmpty()
