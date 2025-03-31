@@ -15,4 +15,16 @@ export class ConfigService {
   public getExpiresIn() {
     return this.nestConfigService.get<string>('EXPIRES_IN');
   }
+
+  public getQdrantServiceUrl() {
+    return this.nestConfigService.get<string>('QDRANT_SERVICE_URL');
+  }
+
+  public getQdrantResumesCollection() {
+    return this.nestConfigService.get<string>('QDRANT_RESUMES_COLLECTION');
+  }
+
+  public getQdrantVacanciesCollection() {
+    return this.nestConfigService.get<string>('QDRANT_VACANCIES_COLLECTION');
+  }
 }
