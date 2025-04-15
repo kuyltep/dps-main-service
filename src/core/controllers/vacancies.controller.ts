@@ -3,7 +3,7 @@ import { ApiExtraModels, ApiOperation, ApiParam, ApiResponse, getSchemaPath } fr
 import { CreateVacancyDto } from 'src/common/dtos/vacancy/create.vacancy.dto';
 import { QueryDeleteVacancyDto } from 'src/common/dtos/vacancy/delete.vacancy.dto';
 import { GetVacanciesDto, GetVacancyDto } from 'src/common/dtos/vacancy/get.vacancy.dto';
-import { QueryGetVacancyDto } from 'src/common/dtos/vacancy/query.vacancy.dto';
+import { QueryGetVacanciesRecommendationDto, QueryGetVacancyDto } from 'src/common/dtos/vacancy/query.vacancy.dto';
 import { UpdateVacancyDto } from 'src/common/dtos/vacancy/update.vacancy.dto';
 import { VacanciesService } from '../services/vacancies.service';
 import { GetResumesVectors, QueryGetResumesByVacancyDto } from 'src/common/dtos/qdrant/query.get.resumes.dto';
@@ -22,6 +22,11 @@ export class VacanciesController {
   @Get()
   public async getVacanciesByQuery(@Query() query: QueryGetVacancyDto) {
     return await this.vacanciesService.getVacanciesByQuery(query);
+  }
+
+  @Get('recommendation')
+  public async getRecommendationVacancies(@Query() query: QueryGetVacanciesRecommendationDto) {
+    return await this.vacanciesService.getRecommendationVacancies(query);
   }
 
   @ApiResponse({

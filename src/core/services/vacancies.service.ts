@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { QueryGetVacancyDto } from 'src/common/dtos/vacancy/query.vacancy.dto';
+import { QueryGetVacanciesRecommendationDto, QueryGetVacancyDto } from 'src/common/dtos/vacancy/query.vacancy.dto';
 import { Prisma } from '@prisma/client';
 import { CreateVacancyDto } from 'src/common/dtos/vacancy/create.vacancy.dto';
 import { UpdateVacancyDto } from 'src/common/dtos/vacancy/update.vacancy.dto';
@@ -57,6 +57,17 @@ export class VacanciesService {
     }
 
     return await this.prismaService.vacancy.findMany(findArgs);
+  }
+
+  public async getRecommendationVacancies(query: QueryGetVacanciesRecommendationDto) {
+    return await this.prismaService.vacancy.findMany({
+      where: {
+        id: {
+          in: query.id,
+        },
+        is_active: true,
+      },
+    });
   }
 
   public async getVacancyById(id: string) {

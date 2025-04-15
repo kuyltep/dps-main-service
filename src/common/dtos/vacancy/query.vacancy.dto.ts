@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { QueryPageDto } from '../query.page.dto';
 import { VacancyOrderByEnum } from 'src/common/enums/vacancy.order-by.enum';
 import { OrderByTypeEnum } from 'src/common/enums/order-by.type.enum';
+import { Transform } from 'class-transformer';
 
 export class QueryGetVacancyDto extends QueryPageDto {
   @ApiProperty({ required: false })
@@ -39,4 +40,15 @@ export class QueryGetVacancyDto extends QueryPageDto {
   @IsOptional()
   @IsEnum(OrderByTypeEnum)
   order: OrderByTypeEnum = OrderByTypeEnum.asc;
+}
+
+export class QueryGetVacanciesRecommendationDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @Transform(({ value }) => {
+    if (!value) return [];
+    const splitedArr = value.split(',');
+    return splitedArr;
+  })
+  id: string[];
 }
